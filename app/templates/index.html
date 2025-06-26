@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload FASTA File</title>
+</head>
+<body>
+    <!-- <h1>Upload FASTA File</h1> -->
+    <form action="/" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" required>
+        <input type="submit" value="Upload">
+    </form>
+
+    {% if filename %}
+    <h3>File: {{ filename }}</h3>
+  
+    {% if serotyping_result %}
+      <h3>ECTyper:</h3>
+      <ul>
+        <li><strong>Species:</strong> {{ serotyping_result['species'] }}</li>
+        <li><strong>Serotype:</strong> {{ serotyping_result['serotype'] }}</li>
+        <li><strong>QC:</strong> {{ serotyping_result['qc'] }}</li>
+        <li><strong>Warnings:</strong> {{ serotyping_result['warnings'] }}</li>
+      </ul>
+    {% endif %}
+  
+    {% if mlst_result %}
+      <h3>MLST:</h3>
+      <ul>
+        <li><strong>Sequence Type:</strong> {{ mlst_result['sequence_type'] }}</li>
+      </ul>
+    {% endif %}
+  {% endif %}
+</body>
+</body>
+</html>
