@@ -83,6 +83,9 @@ RUN git clone https://github.com/phac-nml/ecoli_serotyping.git /opt/ecoli_seroty
     git checkout v2.0.0 && \
     pip install .
 
+# Copy the MASH sketch file into the ectyper expected location
+COPY ectyper_data/EnteroRef_GTDBSketch_20231003_V2.msh /usr/local/lib/python3.10/site-packages/ectyper/Data/
+
 # Copy application source code
 COPY . .
 
@@ -92,6 +95,9 @@ COPY . .
 # Expose Flask port
 # EXPOSE 10000
 EXPOSE 5000
+
+# health check for Render
+HEALTHCHECK CMD curl --fail http://localhost:5000 || exit 1
 
 # Start the app using gunicorn
 CMD ["gunicorn", "--chdir", "app", "main:app", "--bind", "0.0.0.0:5000", "--timeout", "600"]
