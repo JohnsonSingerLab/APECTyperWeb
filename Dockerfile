@@ -82,7 +82,8 @@ RUN git clone https://github.com/phac-nml/ecoli_serotyping.git /opt/ecoli_seroty
 # Download ECTyper MASH sketch file during build
 RUN mkdir -p /usr/local/lib/python3.10/site-packages/ectyper/Data && \
     curl -fL "https://zenodo.org/records/13969103/files/EnteroRef_GTDBSketch_20231003_V2.msh?download=1" \
-      -o /usr/local/lib/python3.10/site-packages/ectyper/Data/EnteroRef_GTDBSketch_20231003_V2.msh
+      -o /usr/local/lib/python3.10/site-packages/ectyper/Data/EnteroRef_GTDBSketch_20231003_V2.msh && \
+      chmod 644 /usr/local/lib/python3.10/site-packages/ectyper/Data/EnteroRef_GTDBSketch_20231003_V2.msh
 
 # Copy the MASH sketch file into the ectyper expected location
 # COPY ectyper_data/EnteroRef_GTDBSketch_20231003_V2.msh /usr/local/lib/python3.10/site-packages/ectyper/Data/
