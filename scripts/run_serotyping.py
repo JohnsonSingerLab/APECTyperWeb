@@ -21,6 +21,7 @@ def run_serotyping(fasta_path):
         "--verify",
         "--input", fasta_path,
         "--output", output_path,
+        "--reference", "/usr/local/lib/python3.10/site-packages/ectyper/Data/EnteroRef_GTDBSketch_20231003_V2.msh"
     ], check=True)
     
     # Read and parse the output
