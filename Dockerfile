@@ -59,7 +59,8 @@ RUN apt-get update \
 
 RUN git clone https://github.com/tseemann/mlst.git /opt/mlst \
  && chmod +x /opt/mlst/bin/mlst \
- && ln -s /opt/mlst/bin/mlst /usr/local/bin/mlst
+ && ln -s /opt/mlst/bin/mlst /usr/local/bin/mlst \
+ && ln -s /opt/mlst/bin/any2fasta /usr/local/bin/any2fasta
 
 RUN curl -fsSL \
      https://raw.githubusercontent.com/tseemann/any2fasta/master/any2fasta \
@@ -74,7 +75,8 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 
 # Download ECTyper MASH sketch file during build
 RUN mkdir -p /usr/local/lib/python3.10/site-packages/ectyper/Data && \
-    curl -fL "https://zenodo.org/records/13969103/files/EnteroRef_GTDBSketch_20231003_V2.msh?download=1" -o /usr/local/lib/python3.10/site-packages/ectyper/Data/EnteroRef_GTDBSketch_20231003_V2.msh
+    curl -fL "https://zenodo.org/records/13969103/files/EnteroRef_GTDBSketch_20231003_V2.msh?download=1" \
+      -o /usr/local/lib/python3.10/site-packages/ectyper/Data/EnteroRef_GTDBSketch_20231003_V2.msh
 
 
 # Clone and install ECTyper (ecoli_serotyping) python package
@@ -84,7 +86,7 @@ RUN git clone https://github.com/phac-nml/ecoli_serotyping.git /opt/ecoli_seroty
     pip install .
 
 # Copy the MASH sketch file into the ectyper expected location
-COPY ectyper_data/EnteroRef_GTDBSketch_20231003_V2.msh /usr/local/lib/python3.10/site-packages/ectyper/Data/
+# COPY ectyper_data/EnteroRef_GTDBSketch_20231003_V2.msh /usr/local/lib/python3.10/site-packages/ectyper/Data/
 
 # Copy application source code
 COPY . .
