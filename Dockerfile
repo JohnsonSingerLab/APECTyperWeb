@@ -20,10 +20,13 @@ RUN apt-get update && \
 
 # Install MLST
 RUN git clone https://github.com/tseemann/mlst.git /opt/mlst && \
-    chmod +x /opt/mlst/bin/mlst /opt/mlst/bin/any2fasta && \
-    ln -s /opt/mlst/bin/mlst /usr/local/bin/mlst && \
-    ln -s /opt/mlst/bin/any2fasta /usr/local/bin/any2fasta && \
-    mlst --help > /dev/null || (echo "X MLST installation failed!" && exit 1)
+    chmod +x /opt/mlst/bin/mlst && \
+    ln -s /opt/mlst/bin/mlst /usr/local/bin/mlst
+
+# Install any2fasta (standalone)
+RUN curl -fsSL https://raw.githubusercontent.com/tseemann/any2fasta/master/any2fasta \
+    -o /usr/local/bin/any2fasta && \
+    chmod +x /usr/local/bin/any2fasta
 
 # Install Python deps
 COPY requirements.txt .
